@@ -17,14 +17,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // MongoDB connection
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000 // 5 seconds
-})
-.then(() => console.log("MongoDB Atlas connected"))
-.catch((err) => console.error("MongoDB connection error:", err));
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('MongoDB Atlas connected'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
 // Serve HTML form
 app.get("/", (req, res) => {
