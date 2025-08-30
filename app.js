@@ -1,4 +1,5 @@
-// app.js
+require("dotenv").config();  // Load env vars from .env (only needed for local dev)
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -16,9 +17,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // MongoDB connection
-require("dotenv").config(); // Make sure this is at the top of your file
+const mongoURI = process.env.MONGODB_URI;
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(mongoURI)
   .then(() => console.log("✅ MongoDB Atlas connected"))
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
