@@ -17,11 +17,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // MongoDB connection
-const mongoURI = process.env.MONGODB_URI;
 
-mongoose.connect(mongoURI)
-  .then(() => console.log("✅ MongoDB Atlas connected"))
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000 // 5 seconds
+})
+.then(() => console.log("MongoDB Atlas connected"))
+.catch((err) => console.error("MongoDB connection error:", err));
 
 // Serve HTML form
 app.get("/", (req, res) => {
