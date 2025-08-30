@@ -17,9 +17,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB Atlas connected'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGODB_URI, {
+  serverSelectionTimeoutMS: 5000, // Set the timeout to 5 seconds
+  socketTimeoutMS: 45000 // Increase the timeout to 45 seconds for network operations
+})
+.then(() => console.log('MongoDB Atlas connected'))
+.catch((err) => console.error('MongoDB connection error:', err));
 
 // Serve HTML form
 app.get("/", (req, res) => {
