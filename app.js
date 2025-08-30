@@ -16,8 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // MongoDB connection
-mongoose.connect("mongodb://127.0.0.1:27017/getUser")
-  .then(() => console.log("✅ MongoDB connected"))
+require("dotenv").config(); // Make sure this is at the top of your file
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log("✅ MongoDB Atlas connected"))
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
 // Serve HTML form
